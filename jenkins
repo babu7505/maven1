@@ -1,0 +1,44 @@
+pipeline
+{
+    agent any
+    stages
+    {
+        stage("continus Download")
+        {
+            steps
+            {
+                 git 'https://github.com/IntelliqDevops/maven.git'
+            }
+        }
+        stage("continus Build")
+        {
+            steps
+            {
+                sh 'mvn package'
+            }
+        }
+        stage ("continus deploy")
+        {
+            steps
+            {
+                deploy adapters: [tomcat9(credentialsId: 'bbe0b835-933d-44e5-8535-8bfe6264656a', path: '', url: 'http://44.203.111.166:8080')], contextPath: 'testapp1', war: '**/*.war'
+                
+            }
+        }
+        stage ("Testing")
+        {
+            steps
+            {
+                git 'https://github.com/IntelliqDevops/FunctionalTesting.git'
+            }
+        }
+        stage ("Delivery")
+        {
+            steps
+            {
+                deploy adapters: [tomcat9(credentialsId: 'bbe0b835-933d-44e5-8535-8bfe6264656a', path: '', url: 'http://52.91.98.76:8080')], contextPath: 'prdapp1', war: '**/*.war'
+                
+            }
+        }
+    }
+}
