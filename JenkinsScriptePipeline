@@ -13,7 +13,7 @@ node('built-in')
    }
    
    stage("deploy"){
-       deploy adapters: [tomcat9(credentialsId: 'bbe0b835-933d-44e5-8535-8bfe6264656a', path: '', url: 'http://3.92.175.74:8080')], contextPath: 'webapp', war: '**/*.war'
+       deploy adapters: [tomcat9(credentialsId: 'b0357346-4963-4e4b-9440-28cbb6325a68', path: '', url: 'http://3.92.175.74:8080')], contextPath: 'webapp', war: '**/*.war'
        
    }
    
@@ -23,7 +23,6 @@ node('built-in')
        sh 'java -jar //var/lib/jenkins/workspace/ScriptedPipeline/testing.jar'
    }
    stage("delivery"){
-       deploy adapters: [tomcat9(credentialsId: 'bbe0b835-933d-44e5-8535-8bfe6264656a', path: '', url: 'http://44.201.239.120:8080')], contextPath: 'webprdapp', war: '**/*.war'
-       
+       deploy adapters: [tomcat9(credentialsId: 'b0357346-4963-4e4b-9440-28cbb6325a68', path: '', url: 'http://44.201.239.120:8080')], contextPath: 'prdapp', war: '**/*.war'
    }
 }
